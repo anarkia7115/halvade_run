@@ -1,0 +1,1 @@
+rm ./halvade*.std*
