@@ -1,1 +1,1 @@
-hadoop jar ./HalvadeUploaderWithLibs.jar -i -1 ./input.manifest -O hdfs:///halvade/upload_output -t 2
+java -jar ./HalvadeUploader.jar -i -1 ../halvade_upload/input.manifest -O s3://gcbibucket/halvade/input -t 2

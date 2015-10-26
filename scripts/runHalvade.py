@@ -113,7 +113,7 @@ if "emr_type" in emr_config:
 	argsString = argsString[:-1]+"]"
 	argsArray.append("Name=Halvade,Jar="+emr_config["emr_jar"]+",ActionOnFailure=TERMINATE_CLUSTER,Args="+argsString)
 	print argsArray
-        #spawnDaemon(argsArray)
+        spawnDaemon(argsArray)
 
 else:
 	print "Running Halvade on local cluster:"
