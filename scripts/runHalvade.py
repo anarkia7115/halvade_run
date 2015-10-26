@@ -90,6 +90,11 @@ if "emr_type" in emr_config:
 	argsArray.append("aws")
 	argsArray.append("emr")
 	argsArray.append("create-cluster")
+	argsArray.append("--log-uri")
+	argsArray.append("s3://gcbibucket/elasticmapreduce")
+	argsArray.append("--ec2-attributes")
+	argsArray.append("file://./ec2.json")
+	argsArray.append("--use-default-roles")
 	argsArray.append("--auto-terminate")
 	argsArray.append("--instance-type")
 	argsArray.append(emr_config["emr_type"])
@@ -99,7 +104,7 @@ if "emr_type" in emr_config:
 	argsArray.append("--ami-version")
 	argsArray.append(emr_config["emr_ami_v"])
         argsArray.append("--bootstrap-actions")
-        argsArray.append("Path=s3://elasticmapreduce/bootstrap-actions/configure-hadoop,Name=configuration,Args="+hadoopArgs+ " Path="+emr_config["emr_script"]+",Name=maketmpdir")
+        argsArray.append("Path=s3://elasticmapreduce/bootstrap-actions/configure-hadoop,Name=configuration,Args="+hadoopArgs+ ",Path="+emr_config["emr_script"]+",Name=maketmpdir")
 	argsArray.append("--steps")
 	argsString ="["
         for key in config:
@@ -112,6 +117,7 @@ if "emr_type" in emr_config:
                 argsString+=key+"="+custom_args[key]+","
 	argsString = argsString[:-1]+"]"
 	argsArray.append("Name=Halvade,Jar="+emr_config["emr_jar"]+",ActionOnFailure=TERMINATE_CLUSTER,Args="+argsString)
+	print "printing arrary"
 	print argsArray
         spawnDaemon(argsArray)
 
